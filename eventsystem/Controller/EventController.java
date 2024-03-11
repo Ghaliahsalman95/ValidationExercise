@@ -44,7 +44,7 @@ public ResponseEntity addEvent(@RequestBody @Valid Event event, Errors errors){
 
     //----
     @PutMapping("/update/{ID}")
-    public ResponseEntity update(@PathVariable String ID, @RequestBody Event event,Errors errors) {
+    public ResponseEntity update(@PathVariable String ID, @RequestBody @Valid Event event,Errors errors) {
 if (errors.hasErrors()){
     String inf=errors.getFieldError().getField();
     return ResponseEntity.status(400).body(inf);
@@ -76,7 +76,7 @@ if (errors.hasErrors()){
     //---• Change capacity
 
     @PutMapping("/changeCapacity/{ID}/{capacity}")
-    public ResponseEntity changeCapacity(@PathVariable @Valid String ID, @PathVariable @Valid int capacity,Errors errors) {
+    public ResponseEntity changeCapacity(@PathVariable String ID, @PathVariable @Valid int capacity,Errors errors) {
      if (errors.hasErrors()){
          String info=errors.getFieldError().getDefaultMessage();
          return ResponseEntity.status(400).body(info);
