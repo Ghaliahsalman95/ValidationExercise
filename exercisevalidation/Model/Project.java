@@ -10,10 +10,10 @@ public class Project {
     @Min(value = 2,message = "Length more than 8")
     private String ID;
     @NotEmpty(message = "Title Cannot be null")
-    @Size(min=8, message = "Length more than 8")
+    @Size(min = 8,message = "Length more than 8")
     private  String title;
     @NotEmpty(message = "Description Cannot be null")
-    @Size(min=15, message = "Length more than 15")
+    @Size(min = 15,message = "Length more than 15")
     private String description ;
     @NotEmpty(message = "Status Cannot be null")
   //||

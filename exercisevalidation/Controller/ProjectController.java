@@ -1,6 +1,7 @@
 package com.example.exercisevalidation.Controller;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.example.exercisevalidation.APIResponse.APIResponse;
 import com.example.exercisevalidation.Model.Project;
@@ -34,6 +35,8 @@ project Class : ID , title , description , status, companyName
             String info=errors.getFieldError().getDefaultMessage();
             return ResponseEntity.status(400).body(info);
         }
+        String status=project.getStatus().replace(" ","");
+        project.setStatus(status);
         projects.add(project);
         return ResponseEntity.status(HttpStatus.OK).body(new APIResponse("Project " + project.getTitle() + " Added successfully"));
 
@@ -57,6 +60,8 @@ project Class : ID , title , description , status, companyName
             return ResponseEntity.status(400).body(info);
         }
         if (index < projects.size()) {
+            String status=project.getStatus().replace(" ","");
+            project.setStatus(status);
             projects.set(index, project);
             return ResponseEntity.status(HttpStatus.OK).body(new APIResponse("Project is updated successfully"));
         }
@@ -81,11 +86,11 @@ project Class : ID , title , description , status, companyName
     @PutMapping("/change/{index}")
     public ResponseEntity change(@PathVariable int index, Errors errors) {
         if (errors.hasErrors()) {
-            String info = errors.getFieldError().getDefaultMessage();
+            String info = Objects.requireNonNull(errors.getFieldError()).getDefaultMessage();
             return ResponseEntity.status(400).body(info);
         }
         if (index < projects.size()) {
-            if (projects.get(index).getStatus().equalsIgnoreCase("Not Started")) {
+            if (projects.get(index).getStatus().equalsIgnoreCase("NotStarted")) {
                 projects.get(index).setStatus("Progress");
             } else if (projects.get(index).getStatus().equalsIgnoreCase("Progress")) {
                 projects.get(index).setStatus(" Completed");
